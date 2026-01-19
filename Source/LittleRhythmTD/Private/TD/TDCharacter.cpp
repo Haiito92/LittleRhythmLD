@@ -63,6 +63,22 @@ void ATDCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputCompone
 
 void ATDCharacter::OnMoveTriggered(const FInputActionValue& InputActionValue)
 {
-	UE_LOG(LogLittleRhythmTD, Log, TEXT("'%s' OnMove."), *GetNameSafe(this));	
+	FVector2D InputVector = InputActionValue.Get<FVector2D>();
+
+	Move(InputVector);
+}
+
+void ATDCharacter::Move(const FVector2D& InputVector)
+{
+	if (!GetController()) return;
+
+	const FRotator ControlRotation = GetController()->GetControlRotation();
+	const FRotator YawRotation(0, ControlRotation.Yaw, 0);
+
+	const FVector Forward = FRotationMatrix(YawRotation).GetUnitAxis(EAxis::X);
+	const FVector Right = FRotationMatrix(YawRotation).GetUnitAxis(EAxis::Y);
+
+	AddMovementInput(Forward, InputVector.X);
+	AddMovementInput(Right, InputVector.Y);
 }
 

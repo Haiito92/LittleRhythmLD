@@ -33,6 +33,7 @@ public:
 
 private:
 	void OnMoveTriggered(const FInputActionValue& InputActionValue);
+	void Move(const FVector2D& InputVector);
 	
 protected:
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category="Components")
