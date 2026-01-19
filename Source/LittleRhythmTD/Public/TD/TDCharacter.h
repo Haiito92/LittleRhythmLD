@@ -3,8 +3,13 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "InputActionValue.h"
 #include "GameFramework/Character.h"
 #include "TDCharacter.generated.h"
+
+class UInputAction;
+class UCameraComponent;
+class USpringArmComponent;
 
 UCLASS()
 class LITTLERHYTHMTD_API ATDCharacter : public ACharacter
@@ -25,4 +30,17 @@ public:
 
 	// Called to bind functionality to input
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
+
+private:
+	void OnMoveTriggered(const FInputActionValue& InputActionValue);
+	
+protected:
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category="Components")
+	TObjectPtr<USpringArmComponent> SpringArm;
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category="Components")
+	TObjectPtr<UCameraComponent> Camera;
+
+	UPROPERTY(EditAnywhere, Category="Input")
+	TObjectPtr<UInputAction> MoveAction;
 };
