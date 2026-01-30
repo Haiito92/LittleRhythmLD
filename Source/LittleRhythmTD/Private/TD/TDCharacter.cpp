@@ -54,6 +54,16 @@ void ATDCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputCompone
 		{
 			UE_LOG(LogLittleRhythmTD, Error, TEXT("'%s' MoveAction invalid, can't bind to it."), *GetNameSafe(this));	
 		}
+
+		if (JumpAction)
+		{
+			EnhancedInputComponent->BindAction(JumpAction, ETriggerEvent::Started, this, &ATDCharacter::OnJumpStarted);
+			
+		}
+		else
+		{
+			UE_LOG(LogLittleRhythmTD, Error, TEXT("'%s' JumpAction invalid, can't bind to it."), *GetNameSafe(this));	
+		}
 	}
 	else
 	{
@@ -80,5 +90,10 @@ void ATDCharacter::Move(const FVector2D& InputVector)
 
 	AddMovementInput(Forward, InputVector.X);
 	AddMovementInput(Right, InputVector.Y);
+}
+
+void ATDCharacter::OnJumpStarted(const FInputActionValue& InputActionValue)
+{
+	Jump();
 }
 

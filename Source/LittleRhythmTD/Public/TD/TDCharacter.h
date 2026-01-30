@@ -34,7 +34,8 @@ public:
 private:
 	void OnMoveTriggered(const FInputActionValue& InputActionValue);
 	void Move(const FVector2D& InputVector);
-	
+
+	void OnJumpStarted(const FInputActionValue& InputActionValue);
 protected:
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category="Components")
 	TObjectPtr<USpringArmComponent> SpringArm;
@@ -44,4 +45,7 @@ protected:
 
 	UPROPERTY(EditAnywhere, Category="Input")
 	TObjectPtr<UInputAction> MoveAction;
+
+	UPROPERTY(EditAnywhere, Category="Input")
+	TObjectPtr<UInputAction> JumpAction;
 };
